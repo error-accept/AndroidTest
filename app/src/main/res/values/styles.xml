@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="button">
+        <item name="android:layout_margin"> 2dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:textColor">#F5EDED</item>
+        <item name="android:background">#6C2626</item>
+<!--        <solid android:color="24235"/>-->
+    </style>
+</resources>
