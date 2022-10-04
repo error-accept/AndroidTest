@@ -22,7 +22,6 @@
         android:text="="
         app:layout_constraintStart_toStartOf="@+id/button10"
         app:layout_constraintTop_toTopOf="@+id/button11" />
-
     <Button
         android:id="@+id/button13"
         android:layout_width="70dp"
