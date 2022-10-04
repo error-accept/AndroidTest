@@ -4,7 +4,7 @@
 ### 1.线性布局实验
 
 #### 实验完成界面
-![img.png](/image/img.png)
+![img.png](image/img.png)
 
 #### 界面设计
 ![img_1.png](image/img_1.png)
