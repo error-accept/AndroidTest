@@ -38,7 +38,6 @@ public class bean {
     }
 
     public static List<bean> setDefaultList(){
-
         List<bean> lb=new ArrayList<>();
         for (int i = 0; i < text.length; i++) {
             System.out.println(i);

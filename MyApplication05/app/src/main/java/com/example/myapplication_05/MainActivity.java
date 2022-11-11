@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
         ListView list = findViewById(id.lv_list);
-        ListView Lview = findViewById(id.lv_list);
-        ImageView img = findViewById(id.tx_img);
-        TextView name = findViewById(id.tx_name);
+//        ListView Lview = findViewById(id.lv_list);
+//        ImageView img = findViewById(id.tx_img);
+//        TextView name = findViewById(id.tx_name);
 
         list.setAdapter(new listAdapter(this, bean.setDefaultList()));
         list.setOnItemClickListener((adapterView, view, i, l) -> {
@@ -38,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL , 0, 0);
                 TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                 v.setTextColor(Color.BLACK);
-
                 toast.show();
-
                 //刷新被选中item的编号
                 be_selected_item = i;
             }

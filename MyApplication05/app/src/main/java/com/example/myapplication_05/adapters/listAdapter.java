@@ -1,15 +1,11 @@
 package com.example.myapplication_05.adapters;
-
 import android.content.Context;
-import android.net.vcn.VcnConfig;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.myapplication_05.MainActivity;
 import com.example.myapplication_05.R;
 import com.example.myapplication_05.beans.bean;
 
@@ -55,7 +51,6 @@ public class listAdapter extends BaseAdapter {
         holder.tv.setText(Bean.getTx_view());
         holder.img.setImageResource(Bean.getIm_image());
         return view;
-
     }
     public class  Holder{
         public ImageView img;

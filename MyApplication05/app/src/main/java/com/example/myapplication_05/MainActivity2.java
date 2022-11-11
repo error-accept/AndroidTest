@@ -13,9 +13,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//        builder.setIcon(R.drawable.cat);
-//        builder.setTitle("这是标题");
-//        builder.setMessage("这是消息")
         AlertDialog alertDialog = builder.create();
         View login= View.inflate(this,R.layout.dialog_view,null);
         alertDialog.setView(login);

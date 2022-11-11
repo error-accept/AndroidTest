@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="字体大小"
+            android:id="@+id/textSize">
+        <menu>
+            <item android:id="@+id/small"
+                android:title="小">
+            </item >
+            <item android:id="@+id/meudin"
+                android:title="中">
+            </item>
+            <item android:id="@+id/big"
+                android:title="大">
+            </item>
+        </menu>
+    </item>
+    <item android:title="普通菜单项"
+        android:id="@+id/putong"/>
+    <item android:title="字体颜色"
+        android:id="@+id/textColor">
+        <menu>
+            <item
+                android:title="蓝色"
+                android:id="@+id/blue" />
+            <item
+                android:title="红色"
+                android:id="@+id/red" />
+        </menu>
+    </item>
+</menu>
