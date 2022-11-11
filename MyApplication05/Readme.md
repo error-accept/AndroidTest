@@ -288,8 +288,67 @@ AlertDialog.Builder 生成对话框，在布局文件内定义样式
 ![img_2.png](img_2.png)
 ![img_3.png](img_3.png)
 ![img_4.png](img_4.png)
+![img_5.png](img_5.png)
 
-#### 
+## 实验4 创建上下文操作模式(ActionMode)的上下文菜单
+### 设计思路
+#### 1.创建listViwe 以及适配器（方法同实验一）
+    ListView listView=findViewById(R.id.lv);
+    String[] name={"One","Two","Three","Four","Five"};
+    int[] image={R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+    
+            List<Map<String,Object>> lists=new ArrayList<>();
+            for(int i=0;i<name.length;i++){
+                HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+                stringObjectHashMap.put("name",name[i]);
+                stringObjectHashMap.put("img",image[i]);
+                lists.add(stringObjectHashMap);
+            }
+            SimpleAdapter simpleAdapter=new SimpleAdapter(MainActivity4.this,lists,R.layout.list2_item,new String[]{"name","img"},new int[]{R.id.name,R.id.img});
+            listView.setAdapter(simpleAdapter);
+#### 2.为listview 设置上下文菜单（ActionMode）
+    listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+#### 3.重写多选监听器
+    listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position,
+                                                  long id, boolean checked) {
+            }
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                mode.setTitle("1 Select");
+                inflater.inflate(R.menu.menu, menu);
+                return true;
+            }
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+        });
+#### 菜单布局文件
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/selected"
+            android:icon="@android:drawable/checkbox_on_background"
+            android:title="select"
+        />
+        <item android:id="@+id/delete"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="delete" />
+    </menu>
+#### 结果截图
+![img_6.png](img_6.png)
+
 
 
 
