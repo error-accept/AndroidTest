@@ -27,6 +27,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -58,6 +60,28 @@ public class NotesList extends ListActivity {
     private static final String TAG = "NotesList";
 
     Button Search;
+    LinearLayout linearLayout ;
+
+    ListView listView;
+    //从第二个页面回来的时候会执行 onActivityResult 这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        linearLayout= findViewById(R.id.main);
+
+        switch (requestCode){
+
+            case 0:
+                linearLayout.setBackgroundColor(Color.BLUE);
+            case 1:
+                linearLayout.setBackgroundColor(Color.GREEN);
+            case 2:
+                linearLayout.setBackgroundColor(Color.RED);
+            case 3:
+                linearLayout.setBackgroundColor(Color.parseColor("#566566"));
+            case 4:
+                linearLayout.setBackgroundColor(Color.YELLOW);
+        }
+    }
 
     /**
      * The columns needed by the cursor adapter
@@ -78,7 +102,7 @@ public class NotesList extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_list);
-        ListView listView = findViewById(android.R.id.list);
+       listView = findViewById(android.R.id.list);
         Search  = findViewById(R.id.search_button);
         EditText editText = findViewById(R.id.search_bar);
 
@@ -334,6 +358,9 @@ public class NotesList extends ListActivity {
            */
           startActivity(new Intent(Intent.ACTION_PASTE, getIntent().getData()));
           return true;
+            case R.id.menu_theme:
+
+                startActivityForResult(new Intent("com.android.notepad.action.EDIT_THEME"),0);
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -374,7 +401,7 @@ public class NotesList extends ListActivity {
          * the adapter associated all of the data for a note with its list item. As a result,
          * getItem() returns that data as a Cursor.
          */
-        Cursor cursor = (Cursor) getListAdapter().getItem(info.position);
+        Cursor cursor = (Cursor) listView.getAdapter().getItem(info.position);
 
         // If the cursor is empty, then for some reason the adapter can't get the data from the
         // provider, so returns null to the caller.

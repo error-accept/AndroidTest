@@ -14,11 +14,10 @@
           android:title="@string/menu_paste"
           android:alphabeticShortcut='p'
         />
-
     <item
-        android:id="@+id/menu_search"
+        android:id="@+id/menu_theme"
         android:alphabeticShortcut='p'
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
-        android:showAsAction="always"/>
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/theme" />
+
 </menu>

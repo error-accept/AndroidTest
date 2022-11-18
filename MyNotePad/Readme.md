@@ -384,5 +384,133 @@
 ![img_2.png](img_2.png)
 
 
+## 功能四,修改背景颜色
+
+### 1. 添加菜单,和布局文件
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="900px"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="选择背景"
+            android:textAlignment="center"
+            android:textColor="#9AD856"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+    
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#9C27B0"></Button>
+    
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#2196F3"></Button>
+    
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#00BCD4"></Button>
+    
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#4CAF50"></Button>
+    
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#F44336"></Button>
+        </LinearLayout>
+    </LinearLayout>
+
+### 编写activity
+    public class BackgroundEdit extends Activity {
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_background_edit);
+             Button button1= findViewById(R.id.button1);
+            Button button2= findViewById(R.id.button2);
+            Button button3= findViewById(R.id.button3);
+            Button button4= findViewById(R.id.button4);
+            Button button5= findViewById(R.id.button5);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(BackgroundEdit.this,NotesList.class);
+                    setResult(0,intent);
+                    finish();
+                }
+            });
+            button2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(1,intent);
+                    finish();
+                }
+            });
+            button3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(2,intent);
+                    finish();
+                }
+            });
+            button4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(3,intent);
+                    finish();
+                }
+            });
+            button5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    setResult(4,intent);
+                    finish();
+                }
+            });
+        }
+    }
+### 3. 在NOTESLIst 内添加回调函数
+     //从第二个页面回来的时候会执行 onActivityResult 这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        linearLayout= findViewById(R.id.main);
+        switch (requestCode){
+            case 0:
+                linearLayout.setBackgroundColor(Color.BLUE);
+            case 1:
+                linearLayout.setBackgroundColor(Color.GREEN);
+            case 2:
+                linearLayout.setBackgroundColor(Color.RED);
+            case 3:
+                linearLayout.setBackgroundColor(Color.parseColor("#566566"));
+            case 4:
+                linearLayout.setBackgroundColor(Color.YELLOW);
+        }
+    }
+### 4. 界面展示
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
 
     
