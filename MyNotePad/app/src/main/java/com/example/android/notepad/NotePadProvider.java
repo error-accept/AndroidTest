@@ -298,7 +298,8 @@ public class NotePadProvider extends ContentProvider implements PipeDataWriter<C
            orderBy = sortOrder;
        }
 
-       // Opens the database object in "read" mode, since no writes need to be done.
+       // Opens the database object in "read" mode, since no writes need to be done.、
+       //数据库读连接
        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
        /*

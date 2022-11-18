@@ -18,6 +18,7 @@ package com.example.android.notepad;
 
 import com.example.android.notepad.NotePad;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.ClipboardManager;
 import android.content.ClipData;
@@ -36,6 +37,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -54,12 +57,15 @@ public class NotesList extends ListActivity {
     // For logging and debugging
     private static final String TAG = "NotesList";
 
+    Button Search;
+
     /**
      * The columns needed by the cursor adapter
      */
     private static final String[] PROJECTION = new String[] {
             NotePad.Notes._ID, // 0
-            NotePad.Notes.COLUMN_NAME_TITLE, // 1
+            NotePad.Notes.COLUMN_NAME_TITLE,
+            NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE// 1
     };
 
     /** The index of the title column */
@@ -71,6 +77,41 @@ public class NotesList extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_list);
+        ListView listView = findViewById(android.R.id.list);
+        Search  = findViewById(R.id.search_button);
+        EditText editText = findViewById(R.id.search_bar);
+
+        Search.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                String SELENTION="title like ?";
+                String[] SELENTIONARGS={"%"+editText.getText()+"%"};
+                Cursor cursor = getContentResolver().query(
+                        getIntent().getData(),
+                        PROJECTION,
+                        SELENTION,
+                        SELENTIONARGS,
+                        NotePad.Notes.DEFAULT_SORT_ORDER);
+                String[] dataColumns = { NotePad.Notes.COLUMN_NAME_TITLE ,NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE} ;
+
+                int[] viewIDs = { android.R.id.text1 ,R.id.update_time};
+                SimpleCursorAdapter adapter
+                        = new SimpleCursorAdapter(
+                        NotesList.this,                             // The Context for the ListView
+                        R.layout.noteslist_item,          // Points to the XML for a list item
+                        cursor,                           // The cursor to get items from
+                        dataColumns,
+                        viewIDs
+                );
+
+                listView.setAdapter(adapter);
+
+
+            }
+        });
+
 
         // The user does not need to hold down the key to use menu shortcuts.
         setDefaultKeyMode(DEFAULT_KEYS_SHORTCUT);
@@ -100,13 +141,26 @@ public class NotesList extends ListActivity {
          *
          * Please see the introductory note about performing provider operations on the UI thread.
          */
-        Cursor cursor = managedQuery(
-            getIntent().getData(),            // Use the default content URI for the provider.
-            PROJECTION,                       // Return the note ID and title for each note.
-            null,                             // No where clause, return all records.
-            null,                             // No where clause, therefore no where column values.
-            NotePad.Notes.DEFAULT_SORT_ORDER  // Use the default sort order.
-        );
+//        Cursor cursor = managedQuery(
+//            getIntent().getData(),            // Use the default content URI for the provider.
+//            PROJECTION,                       // Return the note ID and title for each note.
+//            null,                             // No where clause, return all records.
+//            null,                             // No where clause, therefore no where column values.
+//            NotePad.Notes.DEFAULT_SORT_ORDER  // Use the default sort order.
+//        );
+        Cursor cursor = getContentResolver().query(
+               getIntent().getData(),
+                PROJECTION,
+                null,
+                null,
+                NotePad.Notes.DEFAULT_SORT_ORDER);
+//        if(cursor.moveToFirst()){
+//            do{
+//                @SuppressLint("Range") Long time=cursor.getLong(cursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE));
+//                System.out.println(time);
+//            }
+//            while(cursor.moveToNext());
+//        }
 
         /*
          * The following two arrays create a "map" between columns in the cursor and view IDs
@@ -117,11 +171,11 @@ public class NotesList extends ListActivity {
          */
 
         // The names of the cursor columns to display in the view, initialized to the title column
-        String[] dataColumns = { NotePad.Notes.COLUMN_NAME_TITLE } ;
+        String[] dataColumns = { NotePad.Notes.COLUMN_NAME_TITLE ,NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE} ;
 
         // The view IDs that will display the cursor columns, initialized to the TextView in
         // noteslist_item.xml
-        int[] viewIDs = { android.R.id.text1 };
+        int[] viewIDs = { android.R.id.text1 ,R.id.update_time};
 
         // Creates the backing adapter for the ListView.
         SimpleCursorAdapter adapter
@@ -134,7 +188,7 @@ public class NotesList extends ListActivity {
               );
 
         // Sets the ListView's adapter to be the cursor adapter that was just created.
-        setListAdapter(adapter);
+        listView.setAdapter(adapter);
     }
 
     /**
@@ -151,6 +205,7 @@ public class NotesList extends ListActivity {
      * @return True, always. The menu should be displayed.
      */
     @Override
+    //菜单
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate menu from XML resource
         MenuInflater inflater = getMenuInflater();
@@ -188,7 +243,7 @@ public class NotesList extends ListActivity {
         }
 
         // Gets the number of notes currently being displayed.
-        final boolean haveItems = getListAdapter().getCount() > 0;
+        final boolean haveItems = getListView().getAdapter().getCount() > 0;
 
         // If there are any notes in the list (which implies that one of
         // them is selected), then we need to generate the actions that

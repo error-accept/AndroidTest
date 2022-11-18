@@ -37,6 +37,8 @@ public final class NotePad {
      */
     public static final class Notes implements BaseColumns {
 
+        public static String COLUMN_NAME_Update_Time="update_time";
+
         // This class cannot be instantiated
         private Notes() {}
 

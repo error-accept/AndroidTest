@@ -36,6 +36,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.annotation.SuppressLint;
+
+import java.util.Date;
+
 @SuppressLint("AppCompatCustomView")
 /**
  * This Activity handles "editing" a note, where editing is responding to
@@ -492,12 +495,13 @@ public class NoteEditor extends Activity {
      * @param text The new note contents to use.
      * @param title The new note title to use
      */
-    private final void updateNote(String text, String title) {
+    private void updateNote(String text, String title) {
 
         // Sets up a map to contain values to be updated in the provider.
         ContentValues values = new ContentValues();
-        values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis());
-
+//        values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, System.currentTimeMillis());
+        //设置日期类型的时间
+        values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, String.valueOf(new Date()));
         // If the action is to insert a new note, this creates an initial title for it.
         if (mState == STATE_INSERT) {
 
